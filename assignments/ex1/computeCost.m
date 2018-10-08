@@ -10,14 +10,4 @@ m = length(y); % number of training examples
 H = X * theta; % Computes h for each x contained in training set
 J = (1 / (2 * m)) * (H - y)' * (H - y); % Computes cost function
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost of a particular choice of theta
-%               You should set J to the cost.
-
-
-
-
-
-% =========================================================================
-
 end
