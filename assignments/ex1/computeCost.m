@@ -6,7 +6,6 @@ function J = computeCost(X, y, theta)
 % Initialize some useful values
 m = length(y); % number of training examples
 
-% You need to return the following variables correctly
 H = X * theta; % Computes h for each x contained in training set
 J = (1 / (2 * m)) * (H - y)' * (H - y); % Computes cost function
 
