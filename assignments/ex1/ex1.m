@@ -27,7 +27,7 @@
 clear ; close all; clc
 
 %% ==================== Part 1: Basic Function ====================
-% Complete warmUpExercise.m
+
 fprintf('Running warmUpExercise ... \n');
 fprintf('5x5 Identity Matrix: \n');
 warmUpExercise()
@@ -37,6 +37,7 @@ pause;
 
 
 %% ======================= Part 2: Plotting =======================
+
 fprintf('Plotting Data ...\n')
 data = load('ex1data1.txt');
 X = data(:, 1); y = data(:, 2);
@@ -100,6 +101,7 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 %% ============= Part 4: Visualizing J(theta_0, theta_1) =============
+
 fprintf('Visualizing J(theta_0, theta_1) ...\n')
 
 % Grid over which we will calculate J
