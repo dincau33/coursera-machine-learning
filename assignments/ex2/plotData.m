@@ -5,12 +5,12 @@ function plotData(X, y)
 
 % Create New Figure
 figure; hold on;
-% Find indices of Admitted and NotAdmitted
-admitted = find(y == 1);
-not_admitted = find(y == 0);
+% Find indices of positive and negative
+pos = find(y == 1);
+neg = find(y == 0);
 % Plot training dataset
-plot(X(admitted, 1), X(admitted, 2), 'k+', 'MarkerSize', 3, 'LineWidth', 2);
-plot(X(not_admitted, 1), X(not_admitted, 2), 'ko', 'MarkerFaceColor', 'y', 'MarkerSize', 5);
+plot(X(pos, 1), X(pos, 2), 'k+', 'MarkerSize', 3, 'LineWidth', 2);
+plot(X(neg, 1), X(neg, 2), 'ko', 'MarkerFaceColor', 'y', 'MarkerSize', 5);
 
 hold off;
 
