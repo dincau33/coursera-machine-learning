@@ -29,8 +29,8 @@ m = size(X, 1);
 % Add ones to the X data matrix
 X = [ones(m, 1) X];
 % Calculate activation outputs of the hidden layer
-z2 = X * (Theta1)';
-a2 = sigmoid(z2);
+z2 = X * (Theta1)'; % (5000 * 25)
+a2 = sigmoid(z2); % (5000 * 25)
 % Add bias to the activation outputs
 a2 = [ones(size(a2,1), 1) a2];
 % Calculate activation outputs of the output layer
@@ -50,66 +50,28 @@ J_no_reg = (1 / m) * sum(sum((-y_vec) .* log(H) - (1 - y_vec) .* log(1 - H)));
 % Cost function with regularization
 Theta1_reg = Theta1(:, 2:size(Theta1,2));
 Theta2_reg = Theta2(:, 2:size(Theta2,2));
-reg = (lambda / (2 * m)) * (sum(sum(Theta1_reg .^ 2)) + sum(sum(Theta2_reg .^ 2)));
-J = J_no_reg + reg;
+J_reg = (lambda / (2 * m)) * (sum(sum(Theta1_reg .^ 2)) + sum(sum(Theta2_reg .^ 2)));
+J = J_no_reg + J_reg;
 
 % You need to return the following variables correctly
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: You should complete the code by working through the
-%               following parts.
-%
-% Part 1: Feedforward the neural network and return the cost in the
-%         variable J. After implementing Part 1, you can verify that your
-%         cost function computation is correct by verifying the cost
-%         computed in ex4.m
-%
-% Part 2: Implement the backpropagation algorithm to compute the gradients
-%         Theta1_grad and Theta2_grad. You should return the partial derivatives of
-%         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
-%         Theta2_grad, respectively. After implementing Part 2, you can check
-%         that your implementation is correct by running checkNNGradients
-%
-%         Note: The vector y passed into the function is a vector of labels
-%               containing values from 1..K. You need to map this vector into a
-%               binary vector of 1's and 0's to be used with the neural network
-%               cost function.
-%
-%         Hint: We recommend implementing backpropagation using a for-loop
-%               over the training examples if you are implementing it for the
-%               first time.
-%
-% Part 3: Implement regularization with the cost function and gradients.
-%
-%         Hint: You can implement this around the code for
-%               backpropagation. That is, you can compute the gradients for
-%               the regularization separately and then add them to Theta1_grad
-%               and Theta2_grad from Part 2.
-%
+% Backpropagation algorithm
+for t = 1:m
+   % Step 1: feedforward
+   % Step 2: error calculation for output layer
+   delta3 = ((a3(t,:))' - (y_vec(t,:))'); % (10 * 1)
+   % Step 3: error calculation for hidden layer
+   delta2 =  ((Theta2)' * delta3) .* [1; (sigmoidGradient(z2(t,:)))']; % (26 * 1)
+   delta2 = delta2(2:end); % (25 * 1)
+   % Step 4:
+   Theta1_grad = Theta1_grad + delta2 * (X(t,:)); %(25 * 400)
+   Theta2_grad = Theta2_grad + delta3 * (a2(t,:)); %(10 * 25)
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% -------------------------------------------------------------
-
-% =========================================================================
+Theta1_grad = (1/m) * Theta1_grad;
+Theta2_grad = (1/m) * Theta2_grad;
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
