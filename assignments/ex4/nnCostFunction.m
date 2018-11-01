@@ -54,24 +54,35 @@ J_reg = (lambda / (2 * m)) * (sum(sum(Theta1_reg .^ 2)) + sum(sum(Theta2_reg .^ 
 J = J_no_reg + J_reg;
 
 % You need to return the following variables correctly
-Theta1_grad_no_reg = zeros(size(Theta1));
-Theta2_grad_no_reg = zeros(size(Theta2));
+%Theta1_grad_no_reg = zeros(size(Theta1));
+%Theta2_grad_no_reg = zeros(size(Theta2));
 
 % Backpropagation algorithm without ragularization
-for t = 1:m
+%for t = 1:m
    % Step 1: feedforward
    % Step 2: error calculation for output layer
-   delta3 = ((a3(t,:))' - (y_vec(t,:))'); % (10 * 1)
+%   delta3 = ((a3(t,:))' - (y_vec(t,:))'); % (10 * 1)
    % Step 3: error calculation for hidden layer
-   delta2 =  ((Theta2)' * delta3) .* [1; (sigmoidGradient(z2(t,:)))']; % (26 * 1)
-   delta2 = delta2(2:end); % (25 * 1)
+%   delta2 =  ((Theta2)' * delta3) .* [1; (sigmoidGradient(z2(t,:)))']; % (26 * 1)
+%   delta2 = delta2(2:end); % (25 * 1)
    % Step 4:
-   Theta1_grad_no_reg = Theta1_grad_no_reg + delta2 * (X(t,:)); %(25 * 400)
-   Theta2_grad_no_reg = Theta2_grad_no_reg + delta3 * (a2(t,:)); %(10 * 25)
-end
+%   Theta1_grad_no_reg = Theta1_grad_no_reg + delta2 * (X(t,:)); %(25 * 400)
+%   Theta2_grad_no_reg = Theta2_grad_no_reg + delta3 * (a2(t,:)); %(10 * 25)
+%end
 
-Theta1_grad_no_reg = (1/m) * Theta1_grad_no_reg;
-Theta2_grad_no_reg = (1/m) * Theta2_grad_no_reg;
+% Backpropagation algorithm without ragularization
+% Step 1: feedforward
+% Step 2: error calculation for output layer
+delta3 = a3 - y_vec; % (5000 * 10)
+% Step 3: error calculation for hidden layer
+delta2 = (delta3 * Theta2) .* [ones(m, 1) sigmoidGradient(z2)]; % (5000 * 26)
+delta2 = delta2(:, 2:end);
+% Step 4:
+Theta1_grad_no_reg = (1/m) * (delta2)' * X; %(25 * 400)
+Theta2_grad_no_reg = (1/m) * (delta3)' * a2; %(10 * 25)
+
+%Theta1_grad_no_reg = (1/m) * Theta1_grad_no_reg;
+%Theta2_grad_no_reg = (1/m) * Theta2_grad_no_reg;
 
 % Backpropagation algorithm without ragularization
 Theta1_grad_reg = (lambda / m) * [zeros(size(Theta1, 1), 1) Theta1(:,2:end)];
