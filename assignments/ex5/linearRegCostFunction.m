@@ -7,13 +7,13 @@ function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
-n = length(lambda);
+n = length(theta);
 H = X * theta; % Computes h for each x contained in training set
 theta_reg = [0;theta(2:n)];
 
 % Compute the cost and gradient of regularized linear
 % regression for a particular choice of theta
-J = (1 / 2 * m) * (H - y)' * (H - y);
+J = (1 / (2 * m)) * (H - y)' * (H - y);
 J = J + (lambda / (2 * m)) * (theta_reg)' * theta_reg;
 
 grad = (1 / m) * ((H - y)' * X)';
