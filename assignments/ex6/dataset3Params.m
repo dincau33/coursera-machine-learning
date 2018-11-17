@@ -41,9 +41,6 @@ for i = 1:size(C_val)
         C = C_val(i);
         sigma = sigma_val(j);
     end
-    fprintf(['C_val = %f - sigma_val = %f\n'], C_val(i), sigma_val(j));
-    C
-    sigma
   end
 end
 
