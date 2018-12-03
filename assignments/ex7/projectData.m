@@ -13,6 +13,6 @@ Z = zeros(size(X, 1), K); % (m, K)
 U_reduce = U(:, 1:K); % (n, K)
 
 % Compute the projection of X into U_reduce
-Z = X * U;
+Z = X * U_reduce; % (m, K)
 
 end
