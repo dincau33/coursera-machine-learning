@@ -6,17 +6,18 @@ function idx = findClosestCentroids(X, centroids)
 %
 
 % Set n
-n = size(X, 1);
+m = size(X, 1);
 
 % Set K
 K = size(centroids, 1);
 
 % Return the closest centroids in idx for a dataset X
-for i = 1:n
-  min = sum((X(i,:) - centroids(1, :)) .^ 2);
+idx = zeros(m, 1);
+for i = 1:m
+  min = sum((X(i, :) - centroids(1, :)) .^ 2);
   min_idx = 1;
   for k = 1:K
-    xith_to_centroidkth_dist = sum((X(i,:) - centroids(k, :)) .^ 2);
+    xith_to_centroidkth_dist = sum((X(i, :) - centroids(k, :)) .^ 2);
     if (xith_to_centroidkth_dist < min)
       min_idx = k;
       min = xith_to_centroidkth_dist;
