@@ -46,9 +46,10 @@ H = (X * (Theta)');
 J = (1 / 2) * sum(sum(R .* (H - Y) .^ 2)); % Computes cost function
 
 % X_grad - num_movies x num_features matrix
-X_grad = (1 / 2) * ((R .* (H - Y))' * X)';
+X_grad = (R .* (H - Y)) * Theta;
+
 % Theta_grad num_users x num_features
-Theta_grad = (1 / 2) * (R .* (H - Y) * Theta)';
+Theta_grad = (R .* (H - Y))' * X;
 
 grad = [X_grad(:); Theta_grad(:)];
 
