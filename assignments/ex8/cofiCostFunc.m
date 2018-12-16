@@ -43,13 +43,22 @@ Theta_grad = zeros(size(Theta));
 % Computes h for each movie rated by the user
 % H - num_movies x num_users matrix
 H = (X * (Theta)');
-J = (1 / 2) * sum(sum(R .* (H - Y) .^ 2)); % Computes cost function
+% Computes cost function
+J_no_reg = (1 / 2) * sum(sum(R .* (H - Y) .^ 2));
 
 % X_grad - num_movies x num_features matrix
-X_grad = (R .* (H - Y)) * Theta;
+X_grad_no_reg = (R .* (H - Y)) * Theta;
 
 % Theta_grad num_users x num_features
-Theta_grad = (R .* (H - Y))' * X;
+Theta_grad_no_reg = (R .* (H - Y))' * X;
+
+% Compute cost function with reg
+J = J_no_reg + (lambda / 2) * sum(sum(Theta .^ 2)) + ...
+(lambda / 2) * sum(sum(X .^ 2));
+
+% Gradient with with reg
+X_grad = X_grad_no_reg + lambda * X;
+Theta_grad = Theta_grad_no_reg + lambda * Theta;
 
 grad = [X_grad(:); Theta_grad(:)];
 
